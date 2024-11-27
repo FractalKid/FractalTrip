@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fractal Trip</title>
+  <style>
+    body, html {
+      margin: 0;
+      overflow: hidden;
+      height: 100%;
+    }
+    canvas {
+      display: block;
+    }
+    #start-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button id="start-button">Start</button>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+  <script>
+    let audioContext;
+    let started = false;
+
+    document.getElementById('start-button').addEventListener('click', () => {
+      if (!started) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        audioContext.resume().then(() => {
+          console.log('AudioContext запущен');
+          started = true;
+          document.getElementById('start-button').style.display = 'none'; // Скрываем кнопку
+          startSketch(); // Запускаем sketch.js
+        });
+      }
+    });
+
+    function startSketch() {
+      // Ваш код sketch.js можно вставить сюда
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        background(51);
+      }
+
+      function draw() {
+        fill(255);
+        ellipse(mouseX, mouseY, 50, 50);
+      }
+
+      // Вызов функций setup() и draw() как в sketch.js
+      window.setup = setup;
+      window.draw = draw;
+    }
+  </script>
+</body>
+</html>
